@@ -33,7 +33,7 @@ import java.util.HashMap;
  */
 public class Add extends ListActivity {
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sp;
     Button viewdb;
     Button adddb;
@@ -42,64 +42,64 @@ public class Add extends ListActivity {
     EditText rating;
     TextView student_Id;
     private SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add);
-        adddb=(Button) findViewById(R.id.button2);
-        movie=(EditText)findViewById(R.id.editText3);
-        review=(EditText)findViewById(R.id.editText2);
-        rating=(EditText)findViewById(R.id.editText);
+        adddb = (Button) findViewById(R.id.button2);
+        movie = (EditText) findViewById(R.id.editText3);
+        review = (EditText) findViewById(R.id.editText2);
+        rating = (EditText) findViewById(R.id.editText);
         makedb();
 
 
     }
 
 
-    public void makedb(){
-        db=openOrCreateDatabase("ReviewDB", Context.MODE_PRIVATE, null);
+    public void makedb() {
+        db = openOrCreateDatabase("ReviewDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS reviews(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, movie_name text,movie_review text,movie_rating integer);");
     }
 
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
-    }
-    public boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
-    }
-    public void addit(View v)
-    {
+//    public boolean isExternalStorageWritable() {
+//        String state = Environment.getExternalStorageState();
+//        if (Environment.MEDIA_MOUNTED.equals(state)) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public boolean isExternalStorageReadable() {
+//        String state = Environment.getExternalStorageState();
+//        if (Environment.MEDIA_MOUNTED.equals(state) ||
+//                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public void addit(View v) {
         String mname = movie.getText().toString().trim();
         String mreview = review.getText().toString().trim();
         int mrating;
 
-        if(rating.getText().toString().equals("")) {
-            mrating=0;
-        }
-        else
-        {
-           mrating  = Integer.parseInt(rating.getText().toString());
+        if (rating.getText().toString().equals("")) {
+            mrating = 0;
+        } else {
+            mrating = Integer.parseInt(rating.getText().toString());
         }
 
-        if(mname.equals("") || mreview.equals("") || mrating==0){
-            Toast.makeText(getApplicationContext(),"Please fill all fields", Toast.LENGTH_LONG).show();
+        if (mname.equals("") || mreview.equals("") || mrating == 0) {
+            Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
             return;
         }
 
         String filename = "reviewinternal.txt";
-        String m="Movie Name:";
-        String re="Review:";
-        String rat="Rating:";
-        String nline="\n";
+        String m = "Movie Name:";
+        String re = "Review:";
+        String rat = "Rating:";
+        String nline = "\n";
         FileOutputStream outputStream;
 
         try {
@@ -122,35 +122,35 @@ public class Add extends ListActivity {
             e.printStackTrace();
         }
         String filename1 = "reviewsextpublic.txt";
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),filename1);
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename1);
 
         FileOutputStream os;
         try {
-        os = new FileOutputStream(file,true);
-        os.write(nline.getBytes());
-        os.write(nline.getBytes());
-        os.write(m.getBytes());
-        os.write(nline.getBytes());
-        os.write(mname.getBytes());
-        os.write(nline.getBytes());
-        os.write(re.getBytes());
-        os.write(nline.getBytes());
-        os.write(mreview.getBytes());
-        os.write(nline.getBytes());
-        os.write(rat.getBytes());
-        os.write(nline.getBytes());
-        os.write(Integer.toString(mrating).getBytes());
-        os.close();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+            os = new FileOutputStream(file, true);
+            os.write(nline.getBytes());
+            os.write(nline.getBytes());
+            os.write(m.getBytes());
+            os.write(nline.getBytes());
+            os.write(mname.getBytes());
+            os.write(nline.getBytes());
+            os.write(re.getBytes());
+            os.write(nline.getBytes());
+            os.write(mreview.getBytes());
+            os.write(nline.getBytes());
+            os.write(rat.getBytes());
+            os.write(nline.getBytes());
+            os.write(Integer.toString(mrating).getBytes());
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String filename2 = "reviewsextprivate.txt";
         File file1 = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), filename2);
 
         FileOutputStream os1;
         try {
-            os1 = new FileOutputStream(file1,true);
+            os1 = new FileOutputStream(file1, true);
             os1.write(nline.getBytes());
             os1.write(nline.getBytes());
             os1.write(m.getBytes());
@@ -173,7 +173,7 @@ public class Add extends ListActivity {
 
         FileOutputStream os2;
         try {
-            os2 = new FileOutputStream(file2,true);
+            os2 = new FileOutputStream(file2, true);
             os2.write(nline.getBytes());
             os2.write(nline.getBytes());
             os2.write(m.getBytes());
@@ -193,9 +193,9 @@ public class Add extends ListActivity {
         }
 
 
-        String query = "INSERT INTO reviews (movie_name,movie_review,movie_rating) VALUES('"+mname+"', '"+mreview+"','"+mrating+"');";
+        String query = "INSERT INTO reviews (movie_name,movie_review,movie_rating) VALUES('" + mname + "', '" + mreview + "','" + mrating + "');";
         db.execSQL(query);
-        Toast.makeText(getApplicationContext(),"Saved Successfully to the SQL DataBase, The Internal Storage and The External Storage. ", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Saved Successfully to the SQL DataBase, The Internal Storage and The External Storage. ", Toast.LENGTH_LONG).show();
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sp.edit();
         editor.putLong("total", getProfilesCount());
@@ -204,9 +204,9 @@ public class Add extends ListActivity {
         startActivity(intent);
     }
 
-    public ArrayList<HashMap<String, String>>  getList() {
+    public ArrayList<HashMap<String, String>> getList() {
 
-        String selectQuery =  "SELECT  " +
+        String selectQuery = "SELECT  " +
                 "movie_name" + "," +
                 "movie_review" + "," +
                 "movie_rating" +
@@ -218,8 +218,8 @@ public class Add extends ListActivity {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> movie = new HashMap<String, String>();
-                movie.put("name", cursor.getString( cursor.getColumnIndex("movie_name")));
-                movie.put("rating", cursor.getString(cursor.getColumnIndex("movie_rating"))+" Stars");
+                movie.put("name", cursor.getString(cursor.getColumnIndex("movie_name")));
+                movie.put("rating", cursor.getString(cursor.getColumnIndex("movie_rating")) + " Stars");
                 movie.put("review", cursor.getString(cursor.getColumnIndex("movie_review")));
                 movielist.add(movie);
 
@@ -233,47 +233,40 @@ public class Add extends ListActivity {
     }
 
 
-
-    public void view(View v)
-    {
+    public void view(View v) {
 
 
-        ArrayList<HashMap<String, String>> studentList =  getList();
-        if(studentList.size()!=0) {
+        ArrayList<HashMap<String, String>> studentList = getList();
+        if (studentList.size() != 0) {
             ListView lv = getListView();
-            ListAdapter adapter = new SimpleAdapter( Add.this,studentList, R.layout.listing, new String[] { "name","rating","review"}, new int[] {R.id.movie, R.id.rating, R.id.review});
+            ListAdapter adapter = new SimpleAdapter(Add.this, studentList, R.layout.listing, new String[]{"name", "rating", "review"}, new int[]{R.id.movie, R.id.rating, R.id.review});
             setListAdapter(adapter);
-        }else{
-            Toast.makeText(this,"No movie!",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No movie!", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void delete(View v)
-    {
+    public void delete(View v) {
         String mname = movie.getText().toString().trim();
         String mreview = review.getText().toString().trim();
         int mrating;
-        if(rating.getText().toString().equals("")) {
-            mrating=0;
+        if (rating.getText().toString().equals("")) {
+            mrating = 0;
+        } else {
+            mrating = Integer.parseInt(rating.getText().toString());
         }
-        else
-        {
-            mrating  = Integer.parseInt(rating.getText().toString());
-        }
-        if(mname.equals("")){
-            Toast.makeText(getApplicationContext(),"Please fill movie field to delete the particular movie", Toast.LENGTH_LONG).show();
+        if (mname.equals("")) {
+            Toast.makeText(getApplicationContext(), "Please fill movie field to delete the particular movie", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Long n=getProfilesCount();
+        Long n = getProfilesCount();
 
-            db.delete("reviews", "movie_name" + "=" + '"'+mname+'"', null);
-        if(n==getProfilesCount())
-        {
-            Toast.makeText(getApplicationContext(),"no such movie found!", Toast.LENGTH_LONG).show();
-        }
-        else {
+        db.delete("reviews", "movie_name" + "=" + '"' + mname + '"', null);
+        if (n == getProfilesCount()) {
+            Toast.makeText(getApplicationContext(), "no such movie found!", Toast.LENGTH_LONG).show();
+        } else {
             Toast.makeText(getApplicationContext(), "movie review deleted!", Toast.LENGTH_LONG).show();
             sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = sp.edit();
@@ -284,39 +277,34 @@ public class Add extends ListActivity {
         }
 
 
-
     }
 
     public long getProfilesCount() {
-        long cnt  = DatabaseUtils.queryNumEntries(db, "reviews");
-        return cnt;
+        long count = DatabaseUtils.queryNumEntries(db, "reviews");
+        return count;
     }
 
-    public void update(View v)
-    {
+    public void update(View v) {
         ContentValues values = new ContentValues();
         String mname = movie.getText().toString().trim();
         String mreview = review.getText().toString().trim();
 
         int mrating;
-        if(rating.getText().toString().equals("")) {
-            mrating=0;
+        if (rating.getText().toString().equals("")) {
+            mrating = 0;
+        } else {
+            mrating = Integer.parseInt(rating.getText().toString());
         }
-        else
-        {
-            mrating  = Integer.parseInt(rating.getText().toString());
-        }
-        if(mname.equals("") || mreview.equals("") || mrating==0){
-            Toast.makeText(getApplicationContext(),"Please fill all fields", Toast.LENGTH_LONG).show();
+        if (mname.equals("") || mreview.equals("") || mrating == 0) {
+            Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
             return;
         }
         values.put("movie_name", mname);
-        values.put("movie_review",mreview);
+        values.put("movie_review", mreview);
         values.put("movie_rating", mrating);
 
-        db.update("reviews", values, "movie_name" + "=" + '"'+mname+'"', null);
-        Toast.makeText(getApplicationContext(),"movie review updated!", Toast.LENGTH_LONG).show();
+        db.update("reviews", values, "movie_name" + "=" + '"' + mname + '"', null);
+        Toast.makeText(getApplicationContext(), "movie review updated!", Toast.LENGTH_LONG).show();
 
     }
-
 }
