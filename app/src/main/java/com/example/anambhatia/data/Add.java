@@ -168,6 +168,29 @@ public class Add extends ListActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String filename3 = "reviewsext.txt";
+        File file2 = new File(Environment.getExternalStorageDirectory(), filename3);
+
+        FileOutputStream os2;
+        try {
+            os2 = new FileOutputStream(file2,true);
+            os2.write(nline.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(m.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(mname.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(re.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(mreview.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(rat.getBytes());
+            os2.write(nline.getBytes());
+            os2.write(Integer.toString(mrating).getBytes());
+            os2.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         String query = "INSERT INTO reviews (movie_name,movie_review,movie_rating) VALUES('"+mname+"', '"+mreview+"','"+mrating+"');";
